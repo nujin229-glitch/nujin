@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کۆمپلێکسا پزیشکیا نوژین</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;700;800;900&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#eef5f7;
+    --bg-2:#e3f0ef;
+    --card-bg:#ffffff;
+    --card-bg-2:#f7fbfb;
+    --text-main:#0f2b2e;
+    --text-sub:#4d6669;
+    --text-mute:#7a9295;
+    --accent:#12a89d;
+    --accent-2:#0e8f9e;
+    --accent-soft:#d6f3ef;
+    --border:#dfeceb;
+    --shadow:0 10px 30px rgba(15,60,60,.08);
+    --shadow-hover:0 22px 50px rgba(15,60,60,.16);
+    --glass:rgba(255,255,255,.65);
+    --nav-border:rgba(15,60,60,.06);
+    --blob-1:#9fe8de;
+    --blob-2:#bfe3ff;
+    --blob-3:#ffe1c7;
+    --success:#1fae7a;
+    --scrollbar:#c8e6e2;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Noto Sans Arabic','Noto Kufi Arabic',Tahoma,sans-serif;
+    background:linear-gradient(120deg,var(--bg-1),var(--accent-soft),var(--bg-2),#eaf7ff,var(--bg-1));
+    background-size:400% 400%;
+    animation:gradientFlow 22s ease infinite;
+    color:var(--text-main);
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:color .6s ease;
+    position:relative;
+  }
+  @keyframes gradientFlow{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  ::selection{background:var(--accent);color:#fff;}
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+  ::-webkit-scrollbar-thumb{background:var(--scrollbar);border-radius:10px;}
+
+  h1,h2,h3,.brand{font-family:'Noto Kufi Arabic','Noto Sans Arabic',Tahoma,sans-serif;}
+
+  /* ================= Background decor ================= */
+  .bg-decor{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;}
+
+  .aurora{
+    position:absolute;inset:-60%;
+    background:conic-gradient(from 0deg,var(--blob-1),var(--blob-2),var(--blob-3),var(--accent-soft),var(--blob-1));
+    opacity:.16;filter:blur(100px);
+    animation:rotateAurora 50s linear infinite;
+  }
+  @keyframes rotateAurora{to{transform:rotate(360deg);}}
+
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 22s ease-in-out infinite;}
+  .blob.b1{width:420px;height:420px;background:var(--blob-1);top:-120px;right:-100px;animation-duration:26s;}
+  .blob.b2{width:360px;height:360px;background:var(--blob-2);bottom:-140px;left:-90px;animation-duration:30s;animation-delay:-6s;}
+  .blob.b3{width:280px;height:280px;background:var(--blob-3);top:45%;right:20%;animation-duration:20s;animation-delay:-10s;opacity:.35;}
+  .blob.b4{width:320px;height:320px;background:var(--accent-soft);top:60%;left:8%;animation-duration:24s;animation-delay:-14s;opacity:.4;}
+
+  @keyframes drift{
+    0%,100%{transform:translate(0,0) rotate(0deg) scale(1);}
+    33%{transform:translate(40px,-30px) rotate(10deg) scale(1.1);}
+    66%{transform:translate(-35px,25px) rotate(-8deg) scale(.92);}
+  }
+
+  .tooth-particles span{position:absolute;font-size:22px;opacity:.14;animation:floatUp linear infinite;color:var(--accent);}
+  @keyframes floatUp{
+    0%{transform:translateY(110vh) rotate(0deg);opacity:0;}
+    10%{opacity:.2;}
+    90%{opacity:.14;}
+    100%{transform:translateY(-10vh) rotate(360deg);opacity:0;}
+  }
+
+  /* ================= Navbar ================= */
+  .navbar{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 6vw;
+    background:var(--glass);
+    backdrop-filter:blur(16px) saturate(160%);
+    -webkit-backdrop-filter:blur(16px) saturate(160%);
+    border-bottom:1px solid var(--nav-border);
+    transition:padding .35s ease,box-shadow .35s ease,background .6s ease,border-color .6s ease;
+  }
+  .navbar.scrolled{padding:10px 6vw;box-shadow:0 8px 25px rgba(0,0,0,.08);}
+
+  .brand{
+    display:flex;align-items:center;gap:12px;
+    font-size:1.5rem;font-weight:800;color:var(--text-main);
+    letter-spacing:.3px;
+  }
+  .brand-icon{
+    width:48px;height:48px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    background:#fff;overflow:hidden;flex-shrink:0;
+    font-size:1.4rem;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    animation:pulseIcon 3.2s ease-in-out infinite;
+  }
+  .brand-icon img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
+  @keyframes pulseIcon{
+    0%,100%{transform:scale(1) rotate(0deg);}
+    50%{transform:scale(1.08) rotate(-6deg);}
+  }
+
+  /* ================= Hero ================= */
+  .hero{
+    position:relative;z-index:1;
+    padding:170px 6vw 60px;
+    text-align:center;
+    display:flex;flex-direction:column;align-items:center;gap:18px;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 18px;border-radius:30px;
+    background:var(--accent-soft);color:var(--accent-2);
+    font-weight:600;font-size:.9rem;
+    opacity:0;animation:fadeUp .8s ease forwards;
+    border:1px solid var(--border);
+  }
+  .hero h1{
+    font-size:clamp(2.1rem,5vw,3.6rem);
+    font-weight:900;
+    line-height:1.3;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent));
+    background-size:220% auto;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:fadeUp .9s ease forwards,shine 6s linear infinite;
+    opacity:0;animation-delay:.15s,0s;
+    animation-fill-mode:forwards;
+  }
+  @keyframes shine{to{background-position:-220% center;}}
+
+  .hero p{
+    max-width:640px;color:var(--text-sub);
+    font-size:1.05rem;line-height:1.9;
+    opacity:0;animation:fadeUp .9s ease forwards;
+    animation-delay:.3s;
+  }
+
+  .hero-stats{
+    display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px;
+    opacity:0;animation:fadeUp .9s ease forwards;animation-delay:.45s;
+  }
+  .stat-pill{
+    background:var(--card-bg);border:1px solid var(--border);
+    padding:10px 20px;border-radius:16px;box-shadow:var(--shadow);
+    font-size:.85rem;color:var(--text-sub);font-weight:600;
+    transition:transform .3s ease;
+  }
+  .stat-pill:hover{transform:translateY(-4px);}
+  .stat-pill b{color:var(--accent);font-size:1.05rem;display:block;font-family:'Noto Kufi Arabic';}
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(28px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ================= Doctors Section ================= */
+  .section-title{
+    text-align:center;margin:20px 0 46px;position:relative;z-index:1;
+  }
+  .section-title h2{
+    font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:800;color:var(--text-main);
+  }
+  .section-title span{
+    display:block;color:var(--text-mute);font-weight:500;font-size:.95rem;margin-top:8px;
+  }
+
+  .doctors-section{position:relative;z-index:1;padding:0 6vw 100px;}
+
+  .doctors-grid{
+    display:flex;flex-direction:column;
+    max-width:420px;margin:0 auto;
+  }
+
+  .doctor-card{
+    background:none;border:none;box-shadow:none;
+    position:relative;
+    display:flex;flex-direction:column;align-items:center;
+    padding:46px 0;
+    border-bottom:1px solid var(--border);
+    opacity:0;transform:translateY(40px);
+    transition:opacity .6s ease,transform .6s ease;
+  }
+  .doctor-card:first-child{padding-top:0;}
+  .doctor-card:last-child{border-bottom:none;padding-bottom:10px;}
+  .doctor-card.reveal{opacity:1;transform:translateY(0);}
+
+  .doctor-photo{
+    position:relative;width:min(300px,80%);aspect-ratio:3/4;flex-shrink:0;
+    margin:0 auto;
+  }
+  .doctor-photo img{
+    position:relative;width:100%;height:100%;object-fit:contain;
+    filter:drop-shadow(0 16px 26px rgba(15,60,60,.22));
+    transition:transform .5s ease;
+  }
+  .doctor-card:hover .doctor-photo img{transform:translateY(-6px);}
+
+  .doctor-body{
+    position:relative;padding:18px 20px 0;text-align:center;z-index:1;
+    display:flex;flex-direction:column;width:100%;
+  }
+
+  .doctor-name{
+    font-size:1.12rem;font-weight:800;color:var(--text-main);
+    line-height:1.3;
+  }
+  .doctor-role{
+    margin-top:4px;color:var(--accent-2);font-weight:600;font-size:.82rem;
+    line-height:1.45;
+  }
+
+  .badges{
+    display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0;justify-content:center;
+    align-items:center;position:relative;z-index:1;
+  }
+  .badge{
+    background:var(--accent-soft);color:var(--accent-2);
+    border:1px solid var(--border);
+    font-size:.72rem;font-weight:700;
+    padding:5px 11px;border-radius:9px;
+    letter-spacing:.3px;
+  }
+
+  .divider{height:1px;background:var(--border);margin:14px 0;}
+
+  .contact-list{
+    display:flex;flex-direction:column;gap:6px;position:relative;z-index:1;
+  }
+
+  .contact-row{
+    display:flex;align-items:center;gap:12px;
+    padding:8px 10px;border-radius:12px;
+    text-decoration:none;color:var(--text-main);
+    background:transparent;border:1px solid transparent;
+    transition:background .3s ease,border-color .3s ease,transform .3s ease;
+  }
+  .contact-row:hover{
+    background:var(--accent-soft);
+    border-color:var(--border);
+    transform:translateX(-4px);
+  }
+  .contact-icon{
+    width:38px;height:38px;border-radius:12px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--accent-soft);color:var(--accent-2);font-size:1.05rem;
+    transition:background .3s ease,color .3s ease,transform .4s ease;
+  }
+  .contact-row:hover .contact-icon{
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    color:#fff;transform:scale(1.1) rotate(-8deg);
+  }
+  .contact-text{display:flex;flex-direction:column;font-size:.88rem;}
+  .contact-text b{
+    font-size:.95rem;font-weight:700;
+    direction:ltr;unicode-bidi:isolate;text-align:right;
+  }
+  .contact-text small{color:var(--text-mute);}
+
+  /* ================= Location ================= */
+  .location-section{position:relative;z-index:1;padding:0 6vw 90px;}
+
+  .location-card{
+    max-width:760px;margin:0 auto;
+    background:linear-gradient(135deg,var(--card-bg),var(--card-bg-2));
+    border:1px solid var(--border);border-radius:26px;
+    padding:38px 36px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:space-between;
+    opacity:0;transform:translateY(40px);
+    transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease,border-color .4s ease,background .6s ease;
+  }
+  .location-card.reveal{opacity:1;transform:translateY(0);}
+  .location-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-hover);border-color:var(--accent);}
+
+  .location-left{display:flex;align-items:center;gap:20px;}
+
+  .location-icon-wrap{position:relative;width:64px;height:64px;flex-shrink:0;}
+  .location-icon-wrap .ring{
+    position:absolute;inset:0;border-radius:50%;
+    border:2px solid var(--accent);opacity:0;
+    animation:radar 2.6s ease-out infinite;
+  }
+  .location-icon-wrap .ring:nth-child(2){animation-delay:.85s;}
+  .location-icon-wrap .ring:nth-child(3){animation-delay:1.7s;}
+  @keyframes radar{
+    0%{transform:scale(.55);opacity:.55;}
+    100%{transform:scale(1.7);opacity:0;}
+  }
+  .location-icon{
+    position:relative;z-index:1;width:64px;height:64px;border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.7rem;color:#fff;
+    box-shadow:0 10px 24px rgba(18,168,157,.35);
+  }
+
+  .location-text h3{font-size:1.2rem;font-weight:800;color:var(--text-main);margin-bottom:6px;}
+  .location-text p{color:var(--text-sub);font-size:.92rem;}
+
+  .map-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    color:#fff;font-weight:700;font-size:.9rem;
+    padding:14px 26px;border-radius:14px;text-decoration:none;
+    box-shadow:0 10px 24px rgba(18,168,157,.3);
+    transition:transform .3s ease,box-shadow .3s ease,filter .3s ease;
+    white-space:nowrap;
+  }
+  .map-btn:hover{transform:translateY(-4px);box-shadow:0 16px 32px rgba(18,168,157,.4);filter:brightness(1.05);}
+  .map-btn .arrow{display:inline-block;transition:transform .3s ease;}
+  .map-btn:hover .arrow{transform:translateX(-6px);}
+
+  /* ================= Footer ================= */
+  footer{
+    position:relative;z-index:1;
+    text-align:center;padding:32px 6vw 40px;
+    color:var(--text-mute);font-size:.85rem;
+    border-top:1px solid var(--border);
+  }
+  footer b{color:var(--accent-2);}
+
+  /* ================= Utility / responsive ================= */
+  @media (max-width:760px){
+    .navbar{padding:13px 4vw;}
+    .brand{font-size:1.1rem;gap:9px;}
+    .brand-icon{width:38px;height:38px;font-size:1.15rem;}
+
+    .hero{padding:110px 5vw 34px;gap:14px;}
+    .hero-badge{font-size:.75rem;padding:6px 13px;}
+    .hero p{font-size:.88rem;line-height:1.75;}
+    .hero-stats{gap:8px;}
+    .stat-pill{padding:8px 13px;font-size:.72rem;border-radius:12px;}
+    .stat-pill b{font-size:.88rem;}
+
+    .section-title{margin:14px 0 30px;}
+    .section-title h2{font-size:1.35rem;}
+    .section-title span{font-size:.78rem;}
+
+    .doctors-section{padding:0 4vw 60px;}
+    .doctor-card{padding:34px 0;}
+    .doctor-photo{width:min(250px,78%);}
+    .doctor-body{padding:16px 10px 0;}
+    .doctor-name{font-size:1rem;line-height:1.3;}
+    .doctor-role{font-size:.78rem;margin-top:4px;line-height:1.4;}
+    .badges{gap:6px;margin:8px 0 0;}
+    .badge{font-size:.65rem;padding:4px 9px;border-radius:8px;}
+    .divider{margin:10px 0;}
+
+    .contact-list{gap:6px;}
+    .contact-row{padding:8px 9px;gap:9px;}
+    .contact-icon{width:32px;height:32px;font-size:.9rem;}
+    .contact-text{font-size:.78rem;}
+    .contact-text b{font-size:.85rem;}
+    .contact-text small{font-size:.65rem;}
+
+    .location-section{padding:0 4vw 50px;}
+    .location-card{padding:24px 18px;flex-direction:column;text-align:center;gap:16px;border-radius:20px;}
+    .location-left{flex-direction:column;gap:10px;}
+    .location-text h3{font-size:1.02rem;}
+    .location-text p{font-size:.82rem;}
+    .map-btn{width:100%;justify-content:center;font-size:.82rem;padding:12px 20px;}
+  }
+
+  @media (max-width:400px){
+    .doctor-card{padding:28px 0;}
+    .doctor-body{padding:14px 6px 0;}
+    .doctor-name{font-size:.94rem;}
+    .doctor-role{font-size:.72rem;}
+    .badge{font-size:.6rem;padding:3px 8px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decor">
+  <div class="aurora"></div>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+  <div class="tooth-particles" id="particles"></div>
+</div>
+
+<nav class="navbar" id="navbar">
+  <div class="brand">
+    <span class="brand-icon">
+      <img src="https://i.postimg.cc/d0kWtRPK/nn.png" alt="لۆگۆیا کۆمپلێکسا نوژین">
+    </span>
+    کۆمپلێکسا پزیشکیا نوژین
+  </div>
+</nav>
+
+<header class="hero">
+  <span class="hero-badge">⚕️ چاودێریا تەندروستی ب کوالیتیا بلند</span>
+  <h1>دکتۆرێن پسپۆرێ کۆمپلێکسا مە</h1>
+  <p>کۆمپلێکسەکێ پزیشکی گشتیه، ب پسپۆرێن جوداجودا دبوارێن جیاواز، بۆ چاودێریا تەندروستیا هەوە و ماڵبەتا هەوە. ژێر هەر کارتەکێ، وردەکاریێن پسپۆرێ و ژمارا پەيوەندیێ هەیە دا هەوە بگەهنە بەرا وی.</p>
+  <div class="hero-stats">
+    <div class="stat-pill"><b>+10</b>ساڵان ئەزمونی</div>
+    <div class="stat-pill"><b>پسپۆر</b>بوارێن جوداجودا</div>
+    <div class="stat-pill"><b>24/7</b>پەيوەندی و تۆمارکرن</div>
+  </div>
+</header>
+
+<div class="section-title">
+  <h2>ئەندامێن تیمی</h2>
+  <span>کارتەکێ بۆ هەر دکتۆرێ، ب وردەکاریێن پەيوەندیێ و شوینوارێ</span>
+</div>
+
+<main class="doctors-section">
+  <div class="doctors-grid" id="doctorsGrid">
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="فرهاد شاكر سليفانەی" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">ژيار اسماعيل احمد</div>
+        <div class="doctor-role">نوژدارێ ددانان</div>
+
+        <div class="badges">
+          <span class="badge">B.D.S.</span>
+          <span class="badge">G.D.P.</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647508275244">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 827 5244</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="فرهاد شاكر سليفانەی" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">فرهاد شاكر سليفانەی</div>
+        <div class="doctor-role">پروفیسورێ هاریكار دبوارێ نەخۆشیێن زاروك و نوى بویا</div>
+
+        <div class="badges">
+          <span class="badge">M.B.CH.B</span>
+          <span class="badge">F.K.B.M.S</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647508848469">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 884 84 69</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="نيوار يوسف على" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">نيوار يوسف على</div>
+        <div class="doctor-role">دكتورا (بورد) ب تايبەتمەنديا نشتەرگەريا كولجيسكا وجوبارێن ميزى</div>
+
+        <div class="badges">
+          <span class="badge">بۆرد</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647505047780">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 504 77 80</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="عصام كاكو السندي" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">عصام كاكو السندي</div>
+        <div class="doctor-role">اخصائی الاشعة التشخيصية — زميل المجلس العربي للاختصاصات الطبية</div>
+
+        <div class="badges">
+          <span class="badge">بۆردا عەرەبی</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647511843001">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0751 184 3001</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+          <a class="contact-row" href="tel:+9647503293060">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 329 3060</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="صفاء سامي محمد" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">صفاء سامي محمد</div>
+        <div class="doctor-role">شارەزايا گشتى يا ئافرەتا</div>
+
+        <div class="badges">
+          <span class="badge">MB - ChB</span>
+          <span class="badge">General Pract.</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647503194227">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 319 42 27</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="روناهى يونس ابراهيم" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">روناهى يونس ابراهيم</div>
+        <div class="doctor-role">پروفيسورا هاريكار دكتوراه (بورد) دبوارێ نوژداريا خێزانى، ژنان، دوو گيانان و نەزوكى</div>
+
+        <div class="badges">
+          <span class="badge">M.B.Ch.B</span>
+          <span class="badge">F.K.B.M.S</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647503194227">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 319 42 27</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="دلشاد عبدالله رمضان" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">دلشاد عبدالله رمضان</div>
+        <div class="doctor-role">تايبەتمەندێ نەخوشيێت دل و هناڤا و نه‌خوشييت دوم درێژ</div>
+
+        <div class="badges">
+          <span class="badge">M.B.Ch.B</span>
+          <span class="badge">F.I.B.M.S</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647514244086">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0751 424 40 86</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="doctor-card">
+      <div class="doctor-photo">
+        <!-- بۆ دانانا وێنه‌: src‌ێ بگۆڕە بۆ data:image/jpeg;base64,.... یا وێنەیێ ڤێ دکتۆرێ -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 240'%3E%3Cpath d='M10 240c0-70 36-118 80-118s80 48 80 118' fill='%23ffffff'/%3E%3Ccircle cx='90' cy='72' r='40' fill='%23b7c8c8'/%3E%3Cpath d='M55 132c0 22 16 32 35 32s35-10 35-32' fill='none' stroke='%2312a89d' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='55' cy='134' r='6' fill='%2312a89d'/%3E%3Ccircle cx='125' cy='134' r='6' fill='%2312a89d'/%3E%3C/svg%3E" alt="عيماد عمر" loading="lazy" onerror="this.remove()">
+      </div>
+
+      <div class="doctor-body">
+        <div class="doctor-name">عيماد عمر</div>
+        <div class="doctor-role">برین پێچی شارەزا (جراح) — دەرمانکرنا سوتیا، برینا، دەرزی دانان، نەخشەکێشانا دلی، نشتەرگەریێت بچووک، کونکرنا گوها</div>
+
+        <div class="badges">
+          <span class="badge">جراح</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="contact-list">
+          <a class="contact-row" href="tel:+9647504606864">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 460 6864</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+          <a class="contact-row" href="tel:+9647504463817">
+            <span class="contact-icon">📞</span>
+            <span class="contact-text">
+              <b dir="ltr">0750 446 3817</b>
+              <small>پەلی بکه بۆ پەيوەندیێ</small>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<section class="location-section">
+  <div class="location-card" id="locationCard">
+    <div class="location-left">
+      <div class="location-icon-wrap">
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="location-icon">📍</span>
+      </div>
+      <div class="location-text">
+        <h3>شوینوارێ کۆمپلێکسی</h3>
+        <p>زاخۆ، هەرێما کوردستان، عێراق</p>
+      </div>
+    </div>
+    <a class="map-btn" href="https://maps.app.goo.gl/8ezh1eGCsxnNpShf9?g_st=it" target="_blank" rel="noopener">
+      بینینا شوینی لسەر گووگڵ ماپ <span class="arrow">←</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2026 <b>کۆمپلێکسا پزیشکیا نوژین</b> — هەموو مافێن پارێزراینه
+</footer>
+
+<script>
+  // Navbar shrink on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // Reveal cards on scroll
+  const cards = document.querySelectorAll('.doctor-card, .location-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('reveal'), i * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(card => observer.observe(card));
+
+  // Floating particles background
+  const particleWrap = document.getElementById('particles');
+  const icons = ['✨','➕','🩺','✨','💫'];
+  for (let i = 0; i < 22; i++){
+    const el = document.createElement('span');
+    el.textContent = icons[Math.floor(Math.random() * icons.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.fontSize = (14 + Math.random() * 18) + 'px';
+    el.style.animationDuration = (12 + Math.random() * 14) + 's';
+    el.style.animationDelay = (Math.random() * 10) + 's';
+    particleWrap.appendChild(el);
+  }
+</script>
+
+</body>
+</html>
